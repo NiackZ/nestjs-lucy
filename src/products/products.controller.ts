@@ -1,5 +1,5 @@
 import { CacheInterceptor, Controller, UseGuards, UseInterceptors } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { Crud, CrudController, CrudRequest, Override, ParsedBody, ParsedRequest } from '@nestjsx/crud';
 import { AuthGuard } from 'src/auth/auth.guard';
 import { Product } from 'src/models/product.entity';
@@ -20,6 +20,7 @@ export class ProductsController implements CrudController<Product> {
 	constructor(public service: ProductsService) { }
 
 	@UseGuards(AuthGuard)
+	@ApiBearerAuth()
 	@Override('createOneBase')
 	create(
 		@ParsedRequest() req: CrudRequest,
@@ -30,6 +31,7 @@ export class ProductsController implements CrudController<Product> {
 
 	@UseInterceptors(CacheInterceptor)
 	@UseGuards(AuthGuard)
+	@ApiBearerAuth()
 	@Override('updateOneBase')
 	update(@ParsedRequest() req: CrudRequest,
 		@ParsedBody() dto: CreateProductDto

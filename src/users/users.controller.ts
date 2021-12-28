@@ -1,5 +1,5 @@
 import { Controller, UseGuards } from "@nestjs/common";
-import { ApiTags } from "@nestjs/swagger";
+import { ApiBearerAuth, ApiTags } from "@nestjs/swagger";
 import { Crud, CrudController, CrudRequest, Override, ParsedRequest } from "@nestjsx/crud";
 import { AuthGuard } from "src/auth/auth.guard";
 import { User } from "src/models/user.entity";
@@ -20,6 +20,7 @@ export class UsersController implements CrudController<User> {
 
 	@UseGuards(AuthGuard)
 	@Override('getManyBase')
+	@ApiBearerAuth()
 	getMany(@ParsedRequest() req: CrudRequest){
 		return this.service.getMany(req)
 	}

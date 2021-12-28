@@ -9,6 +9,7 @@ async function start(){
 		.setTitle("NestJS")
 		.setDescription("Documentation API")
 		.setVersion('1.0.0')
+		.addBearerAuth()
 		.build()
 	const doc = SwaggerModule.createDocument(app, config)
 	SwaggerModule.setup('/api/docs', app, doc)
