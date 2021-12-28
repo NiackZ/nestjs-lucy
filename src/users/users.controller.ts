@@ -1,4 +1,4 @@
-import { Controller, UseGuards } from "@nestjs/common";
+import { Controller, UseGuards, UsePipes, ValidationPipe } from "@nestjs/common";
 import { ApiBearerAuth, ApiTags } from "@nestjs/swagger";
 import { Crud, CrudController} from "@nestjsx/crud";
 import { AuthGuard } from "src/auth/auth.guard";
@@ -17,6 +17,7 @@ import { UsersService } from "./users.service";
 		}
   }
 })
+@UsePipes(new ValidationPipe())
 @Controller("users")
 export class UsersController implements CrudController<User> {
   constructor(public service: UsersService) {}

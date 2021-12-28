@@ -1,4 +1,4 @@
-import { CacheInterceptor, Controller, UseGuards } from '@nestjs/common';
+import { CacheInterceptor, Controller, UseGuards, UsePipes, ValidationPipe } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { Crud, CrudController } from '@nestjsx/crud';
 import { AuthGuard } from 'src/auth/auth.guard';
@@ -6,6 +6,7 @@ import { Product } from 'src/models/product.entity';
 import { ProductsService } from './products.service';
 
 @ApiTags('Продукты')
+
 @Crud({
 	model: {
 		type: Product,
@@ -21,6 +22,7 @@ import { ProductsService } from './products.service';
 		}
 	},
 })
+@UsePipes(new ValidationPipe())
 @Controller('products')
 export class ProductsController implements CrudController<Product> {
 	constructor(public service: ProductsService) { }
